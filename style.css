@@ -1,0 +1,63 @@
+:root {
+    --bg-color: #7a7a5d;
+    --text-color: #baba04;
+    --button-color: #363625;
+    --button-border: #444;
+    --accent: #82822b;
+}
+
+body {
+    margin: 0;
+    font-family: sans-serif;
+    text-align: center;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.title {
+    padding: 15px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 1fr); /* forces 6 rows */
+    gap: 10px;
+    padding: 10px;
+    height: calc(100vh - 70px); /* fills screen under title */
+}
+
+/* iPhone / small screens */
+@media (max-width: 600px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+        height: auto;
+    }
+}
+
+.button {
+    background: var(--button-color);
+    border: 1px solid var(--button-border);
+    padding: 15px;
+    cursor: pointer;
+}
+
+.button:active {
+    background: var(--accent);
+}
+
+.icon {
+    height: 40px;
+    margin-bottom: 5px;
+}
+
+.label {
+    font-size: 12px;
+}
+
+#stopAll {
+    margin-bottom: 10px;
+    padding: 10px;
+    cursor: pointer;
+}

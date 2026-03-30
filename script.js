@@ -97,15 +97,22 @@ document.getElementById("pageTTS").onclick = () => {
     ttsPage.style.display = "block";
 };
 
-// -------- SPELL & SPEAK --------
+// -------- SPELL & SPEAK (FIXED LIKE SOUNDBOARD) --------
 const ttsGrid = document.getElementById("ttsGrid");
 const ttsOutput = document.getElementById("ttsOutput");
 
 let currentText = "";
 
-const keys = "ABCDEFGHIJKLMNOPQRSTUVWXYZ ".split("");
+// CREATE AUDIO MAP (same idea as soundboard)
+const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+const ttsSounds = {};
 
-keys.forEach(letter => {
+alphabet.forEach(letter => {
+    ttsSounds[letter] = new Audio(`audio-alphabet/${letter}.wav`);
+});
+
+// CREATE KEYS
+alphabet.forEach(letter => {
     const key = document.createElement("div");
     key.className = "ttsKey";
     key.innerText = letter;
@@ -114,7 +121,8 @@ keys.forEach(letter => {
         currentText += letter;
         ttsOutput.innerText = currentText;
 
-        const audio = new Audio(`audio-alphabet/${letter}.wav`);
+        const audio = ttsSounds[letter];
+        audio.currentTime = 0;
         audio.play();
     };
 

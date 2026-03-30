@@ -12,7 +12,7 @@
 
     <div class="nav">
         <button id="pageSoundboard">Soundboard</button>
-        <button id="pageTTS">TTS</button>
+        <button id="pageTTS">Spell & Speak</button>
     </div>
 
     <button id="stopAll">SILENCE</button>
@@ -22,10 +22,16 @@
         <div class="grid" id="soundboard"></div>
     </div>
 
-    <!-- TTS PAGE -->
+    <!-- SPELL & SPEAK PAGE -->
     <div id="ttsPage" style="display:none;">
         <div class="ttsContainer">
             <div id="ttsOutput" class="ttsOutput"></div>
+
+            <div class="ttsControls">
+                <button id="backspace">Backspace</button>
+                <button id="clearText">Reset</button>
+            </div>
+
             <div class="ttsGrid" id="ttsGrid"></div>
         </div>
     </div>

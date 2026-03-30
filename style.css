@@ -10,54 +10,85 @@ body {
     margin: 0;
     font-family: sans-serif;
     text-align: center;
-    background-color: var(--bg-color);
     color: var(--text-color);
+
+    /* BACKGROUND IMAGE */
+    background: url("images/background.jpg") no-repeat center center fixed;
+    background-size: cover;
 }
 
 .title {
-    padding: 15px;
+    padding: 10px;
 }
 
+/* NAVIGATION */
+.nav {
+    margin-bottom: 10px;
+}
+
+.nav button {
+    margin: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+/* GRID */
 .grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: repeat(6, 1fr); /* forces 6 rows */
-    gap: 10px;
+    gap: 8px;
     padding: 10px;
-    height: calc(100vh - 70px); /* fills screen under title */
 }
 
-/* iPhone / small screens */
+/* MOBILE */
 @media (max-width: 600px) {
     .grid {
         grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: auto;
-        height: auto;
     }
 }
 
+/* BUTTON STYLE (METALLIC) */
 .button {
-    background: var(--button-color);
+    background: linear-gradient(145deg, #4a4a3a, #2b2b1f);
     border: 1px solid var(--button-border);
-    padding: 15px;
+    padding: 10px;
     cursor: pointer;
+    box-shadow: 2px 2px 5px #000;
+    font-size: 12px;
 }
 
 .button:active {
     background: var(--accent);
 }
 
-.icon {
-    height: 40px;
-    margin-bottom: 5px;
-}
-
-.label {
-    font-size: 12px;
-}
-
+/* STOP BUTTON */
 #stopAll {
     margin-bottom: 10px;
     padding: 10px;
+    cursor: pointer;
+}
+
+/* TTS */
+.ttsContainer {
+    padding: 10px;
+}
+
+.ttsOutput {
+    min-height: 40px;
+    margin-bottom: 10px;
+    border: 1px solid var(--button-border);
+    padding: 10px;
+}
+
+.ttsGrid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 5px;
+}
+
+.ttsKey {
+    padding: 10px;
+    background: linear-gradient(145deg, #4a4a3a, #2b2b1f);
+    border: 1px solid var(--button-border);
     cursor: pointer;
 }

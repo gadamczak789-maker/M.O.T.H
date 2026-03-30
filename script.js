@@ -1,126 +1,109 @@
-// -------- SOUNDBOARD (NOW 50 SLOTS) --------
-const sounds = [
-    { name: "M.O.T.H", file: "audio/Moth.mp3" },
-    { name: "Waving", file: "audio/Waves.mp3" },
-    { name: "Boot-Up", file: "audio/Sparks.mp3" },
-    { name: "Heals", file: "audio/Healing.mp3" },
-    { name: "Top-Gear", file: "audio/Top-Gear.mp3" },
-    { name: "Government", file: "audio/Canada.mp3" },
+:root {
+    --bg-color: #7a7a5d;
+    --text-color: #baba04;
+    --button-color: #363625;
+    --button-border: #444;
+    --accent: #82822b;
+}
 
-    { name: "Akward", file: "audio/Crickets.mp3" },
-    { name: "Crap DND", file: "audio/CrapDND.mp3" },
-    { name: "I pick the music", file: "audio/I pick the music.mp3" },
-    { name: "Music Box", file: "audio/MusicBox.mp3" },
-    { name: "Elevator", file: "audio/Elevator.mp3" },
-    { name: "Boomstick", file: "audio/Reload.mp3" },
+body {
+    margin: 0;
+    font-family: sans-serif;
+    text-align: center;
+    color: var(--text-color);
 
-    { name: "Well that was Sad", file: "audio/Sad.mp3" },
-    { name: "Hello", file: "audio/Hello.mp3" },
-    { name: "Bored :|", file: "audio/I'm bored.mp3" },
-    { name: "Haiiiiii", file: "audio/HAIIIIII.mp3" },
-    { name: "You got it", file: "audio/You got it dude.mp3" },
-    { name: "Get Over Here", file: "audio/Get over here.mp3" },
+    background: url("images/background.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
 
-    { name: "Low Honor", file: "audio/Bad Choice.mp3" },
-    { name: "Welp", file: "audio/That was a mistake.mp3" },
-    { name: "Paunch", file: "audio/ATTACK.mp3" },
-    { name: "Power Down", file: "audio/Windows power down.mp3" },
-    { name: "That was a fail", file: "audio/Fail.mp3" },
-    { name: "Hydration", file: "audio/Pepsimann.mp3" },
+/* TITLE WITH BACKGROUND */
+.title {
+    padding: 15px;
+    background: rgba(0,0,0,0.5);
+    display: inline-block;
+    margin-top: 10px;
+}
 
-    { name: "Metal Pipe", file: "audio/Metal Pipe Sound.mp3" },
-    { name: "Alarm", file: "audio/Hallway Ambience.mp3" },
-    { name: "Goodbye", file: "audio/Goodbye.mp3" },
-    { name: "Dun Dun Dunnnn", file: "audio/Dun Dun Dun.mp3" },
-    { name: "Squish", file: "audio/Squish.mp3" },
-    { name: "Birb", file: "audio/bird-sounds.mp3" },
+/* NAV */
+.nav {
+    margin: 10px;
+}
 
-    { name: "Thinking Error", file: "audio/Dial Up.mp3" },
-    { name: "CLAP CLAP", file: "audio/Applause.mp3" },
-    { name: "Break My Stride", file: "audio/Break My Stride - Matthew Wilder (192k).mp3" },
+.nav button {
+    margin: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+}
 
-    // ADDITIONAL TO REACH 50
-    { name: "Sound 37", file: "audio/sound37.mp3" },
-    { name: "Sound 38", file: "audio/sound38.mp3" },
-    { name: "Sound 39", file: "audio/sound39.mp3" },
-    { name: "Sound 40", file: "audio/sound40.mp3" },
-    { name: "Sound 41", file: "audio/sound41.mp3" },
-    { name: "Sound 42", file: "audio/sound42.mp3" },
-    { name: "Sound 43", file: "audio/sound43.mp3" },
-    { name: "Sound 44", file: "audio/sound44.mp3" },
-    { name: "Sound 45", file: "audio/sound45.mp3" },
-    { name: "Sound 46", file: "audio/sound46.mp3" },
-    { name: "Sound 47", file: "audio/sound47.mp3" },
-    { name: "Sound 48", file: "audio/sound48.mp3" },
-    { name: "Sound 49", file: "audio/sound49.mp3" },
-    { name: "Sound 50", file: "audio/sound50.mp3" }
-];
+/* GRID */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+    padding: 10px;
+}
 
-const container = document.getElementById("soundboard");
-const stopButton = document.getElementById("stopAll");
+@media (max-width: 600px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
 
-let allAudio = [];
+/* METALLIC BUTTON */
+.button {
+    background: linear-gradient(145deg, #4a4a3a, #2b2b1f);
+    border: 1px solid var(--button-border);
+    padding: 10px;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px #000;
+    font-size: 12px;
+}
 
-sounds.forEach(sound => {
-    const button = document.createElement("div");
-    button.className = "button";
-    button.innerText = sound.name;
+.button:active {
+    background: var(--accent);
+}
 
-    const audio = new Audio(sound.file);
-    allAudio.push(audio);
+/* STOP BUTTON */
+#stopAll {
+    margin-bottom: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
 
-    button.addEventListener("click", () => {
-        audio.currentTime = 0;
-        audio.play();
-    });
+/* SPELL & SPEAK */
+.ttsContainer {
+    padding: 10px;
+}
 
-    container.appendChild(button);
-});
+.ttsOutput {
+    min-height: 40px;
+    margin-bottom: 10px;
+    border: 1px solid var(--button-border);
+    padding: 10px;
+    background: rgba(0,0,0,0.4);
+}
 
-// STOP ALL
-stopButton.addEventListener("click", () => {
-    allAudio.forEach(a => {
-        a.pause();
-        a.currentTime = 0;
-    });
-});
+/* CONTROL BUTTONS */
+.ttsControls {
+    margin-bottom: 10px;
+}
 
-// -------- PAGE SWITCHING --------
-const soundboardPage = document.getElementById("soundboardPage");
-const ttsPage = document.getElementById("ttsPage");
+.ttsControls button {
+    margin: 5px;
+    padding: 8px;
+    cursor: pointer;
+}
 
-document.getElementById("pageSoundboard").onclick = () => {
-    soundboardPage.style.display = "block";
-    ttsPage.style.display = "none";
-};
+/* KEYBOARD */
+.ttsGrid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 5px;
+}
 
-document.getElementById("pageTTS").onclick = () => {
-    soundboardPage.style.display = "none";
-    ttsPage.style.display = "block";
-};
-
-// -------- TTS KEYBOARD --------
-const ttsGrid = document.getElementById("ttsGrid");
-const ttsOutput = document.getElementById("ttsOutput");
-
-let currentText = "";
-let ttsAudio = [];
-
-const keys = "ABCDEFGHIJKLMNOPQRSTUVWXYZ ".split("");
-
-keys.forEach(letter => {
-    const key = document.createElement("div");
-    key.className = "ttsKey";
-    key.innerText = letter;
-
-    key.onclick = () => {
-        currentText += letter;
-        ttsOutput.innerText = currentText;
-
-        const audio = new Audio(`audio/${letter}.mp3`);
-        audio.play();
-        ttsAudio.push(audio);
-    };
-
-    ttsGrid.appendChild(key);
-});
+.ttsKey {
+    padding: 10px;
+    background: linear-gradient(145deg, #4a4a3a, #2b2b1f);
+    border: 1px solid var(--button-border);
+    cursor: pointer;
+}

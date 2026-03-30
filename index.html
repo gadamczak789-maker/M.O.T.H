@@ -3,16 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soundboard</title>
+    <title>M.O.T.H</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <h1 class="title">M.O.T.H</h1>
 
-    <button id="stopAll">SILENCEl</button>
+    <div class="nav">
+        <button id="pageSoundboard">Soundboard</button>
+        <button id="pageTTS">TTS</button>
+    </div>
 
-    <div class="grid" id="soundboard"></div>
+    <button id="stopAll">SILENCE</button>
+
+    <!-- SOUND BOARD PAGE -->
+    <div id="soundboardPage">
+        <div class="grid" id="soundboard"></div>
+    </div>
+
+    <!-- TTS PAGE -->
+    <div id="ttsPage" style="display:none;">
+        <div class="ttsContainer">
+            <div id="ttsOutput" class="ttsOutput"></div>
+            <div class="ttsGrid" id="ttsGrid"></div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

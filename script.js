@@ -114,7 +114,7 @@ keys.forEach(letter => {
         currentText += letter;
         ttsOutput.innerText = currentText;
 
-        const audio = new Audio(`audio/${letter}.mp3`);
+        const audio = new Audio(`audio_alphabet/${letter}.wav`);
         audio.play();
     };
 

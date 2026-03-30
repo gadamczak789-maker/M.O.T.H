@@ -30,7 +30,7 @@ const sounds = [
 
     { name: "Metal Pipe", file: "audio/Metal Pipe Sound.mp3" },
     { name: "Alarm", file: "audio/Hallway Ambience.mp3" },
-    { name: "Goodbye", file: "audio/Hallway Ambience.mp3" },
+    { name: "Goodbye", file: "audio/Goodbye.mp3" },
     { name: "Dun Dun Dunnnn", file: "audio/Dun Dun Dun.mp3" },
     { name: "Squish", file: "audio/Squish.mp3" },
     { name: "Birb", file: "audio/bird-sounds.mp3" },

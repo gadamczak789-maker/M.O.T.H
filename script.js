@@ -1,3 +1,4 @@
+// -------- SOUNDBOARD (NOW 50 SLOTS) --------
 const sounds = [
     { name: "M.O.T.H", file: "audio/Moth.mp3" },
     { name: "Waving", file: "audio/Waves.mp3" },
@@ -35,11 +36,24 @@ const sounds = [
     { name: "Birb", file: "audio/bird-sounds.mp3" },
 
     { name: "Thinking Error", file: "audio/Dial Up.mp3" },
-    { name: "CLAP CLAP CLAP CLAP CLAP", file: "audio/Applause.mp3" },
+    { name: "CLAP CLAP", file: "audio/Applause.mp3" },
     { name: "Break My Stride", file: "audio/Break My Stride - Matthew Wilder (192k).mp3" },
-    { name: "Sound 34", file: "audio/sound34.mp3" },
-    { name: "Sound 35", file: "audio/sound35.mp3" },
-    { name: "Sound 36", file: "audio/sound36.mp3" }
+
+    // ADDITIONAL TO REACH 50
+    { name: "Sound 37", file: "audio/sound37.mp3" },
+    { name: "Sound 38", file: "audio/sound38.mp3" },
+    { name: "Sound 39", file: "audio/sound39.mp3" },
+    { name: "Sound 40", file: "audio/sound40.mp3" },
+    { name: "Sound 41", file: "audio/sound41.mp3" },
+    { name: "Sound 42", file: "audio/sound42.mp3" },
+    { name: "Sound 43", file: "audio/sound43.mp3" },
+    { name: "Sound 44", file: "audio/sound44.mp3" },
+    { name: "Sound 45", file: "audio/sound45.mp3" },
+    { name: "Sound 46", file: "audio/sound46.mp3" },
+    { name: "Sound 47", file: "audio/sound47.mp3" },
+    { name: "Sound 48", file: "audio/sound48.mp3" },
+    { name: "Sound 49", file: "audio/sound49.mp3" },
+    { name: "Sound 50", file: "audio/sound50.mp3" }
 ];
 
 const container = document.getElementById("soundboard");
@@ -50,11 +64,7 @@ let allAudio = [];
 sounds.forEach(sound => {
     const button = document.createElement("div");
     button.className = "button";
-
-    button.innerHTML = `
-        <div class="icon">🥌</div>
-        <div class="label">${sound.name}</div>
-    `;
+    button.innerText = sound.name;
 
     const audio = new Audio(sound.file);
     allAudio.push(audio);
@@ -67,10 +77,50 @@ sounds.forEach(sound => {
     container.appendChild(button);
 });
 
-// STOP ALL BUTTON
+// STOP ALL
 stopButton.addEventListener("click", () => {
-    allAudio.forEach(audio => {
-        audio.pause();
-        audio.currentTime = 0;
+    allAudio.forEach(a => {
+        a.pause();
+        a.currentTime = 0;
     });
+});
+
+// -------- PAGE SWITCHING --------
+const soundboardPage = document.getElementById("soundboardPage");
+const ttsPage = document.getElementById("ttsPage");
+
+document.getElementById("pageSoundboard").onclick = () => {
+    soundboardPage.style.display = "block";
+    ttsPage.style.display = "none";
+};
+
+document.getElementById("pageTTS").onclick = () => {
+    soundboardPage.style.display = "none";
+    ttsPage.style.display = "block";
+};
+
+// -------- TTS KEYBOARD --------
+const ttsGrid = document.getElementById("ttsGrid");
+const ttsOutput = document.getElementById("ttsOutput");
+
+let currentText = "";
+let ttsAudio = [];
+
+const keys = "ABCDEFGHIJKLMNOPQRSTUVWXYZ ".split("");
+
+keys.forEach(letter => {
+    const key = document.createElement("div");
+    key.className = "ttsKey";
+    key.innerText = letter;
+
+    key.onclick = () => {
+        currentText += letter;
+        ttsOutput.innerText = currentText;
+
+        const audio = new Audio(`audio/${letter}.mp3`);
+        audio.play();
+        ttsAudio.push(audio);
+    };
+
+    ttsGrid.appendChild(key);
 });

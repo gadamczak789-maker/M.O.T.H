@@ -39,7 +39,7 @@ const sounds = [
     { name: "CLAP CLAP", file: "audio/Applause.mp3" },
     { name: "Break My Stride", file: "audio/Break My Stride - Matthew Wilder (192k).mp3" },
 
-    { name: "Sound 37", file: "audio/sound37.mp3" },
+    { name: "Hardware Store", file: "audio/Hardware Store.mp3" },
     { name: "Sound 38", file: "audio/sound38.mp3" },
     { name: "Sound 39", file: "audio/sound39.mp3" },
     { name: "Sound 40", file: "audio/sound40.mp3" },

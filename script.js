@@ -1,11 +1,17 @@
-// -------- BOOT SCREEN --------
+// -------- BOOT --------
 window.onload = () => {
     setTimeout(() => {
         document.getElementById("bootScreen").style.display = "none";
-    }, 1500);
+    }, 1200);
 };
 
-// -------- SOUND FILES (ONLY FILENAMES NEEDED NOW) --------
+// -------- GLOBAL VOLUME --------
+let globalVolume = 1;
+document.getElementById("volumeSlider").oninput = (e) => {
+    globalVolume = e.target.value;
+};
+
+// -------- SOUND FILES --------
 const soundFiles = [
     "ATTACK.mp3",
     "Applause.mp3",
@@ -47,29 +53,61 @@ const soundFiles = [
 ];
 
 const container = document.getElementById("soundboard");
-const stopButton = document.getElementById("stopAll");
-
 let allAudio = [];
 
-soundFiles.forEach(file => {
-    const name = file.replace(".mp3", "");
+// LOAD ORDER (for drag-save)
+let savedOrder = JSON.parse(localStorage.getItem("soundOrder")) || soundFiles;
 
-    const button = document.createElement("div");
-    button.className = "button";
-    button.innerText = name;
+function buildSoundboard() {
+    container.innerHTML = "";
 
-    const audio = new Audio(`audio/${file}`);
-    allAudio.push(audio);
+    savedOrder.forEach(file => {
+        const name = file.replace(".mp3", "");
 
-    button.onclick = () => {
-        audio.currentTime = 0;
-        audio.play();
-    };
+        const btn = document.createElement("div");
+        btn.className = "button";
+        btn.innerText = name;
+        btn.draggable = true;
 
-    container.appendChild(button);
-});
+        const audio = new Audio(`audio/${file}`);
+        allAudio.push(audio);
 
-stopButton.onclick = () => {
+        btn.onclick = () => {
+            audio.volume = globalVolume;
+            audio.currentTime = 0;
+            audio.play();
+        };
+
+        // DRAG EVENTS
+        btn.ondragstart = () => dragStart(file);
+        btn.ondragover = (e) => e.preventDefault();
+        btn.ondrop = () => drop(file);
+
+        container.appendChild(btn);
+    });
+}
+
+let draggedItem = null;
+
+function dragStart(file) {
+    draggedItem = file;
+}
+
+function drop(targetFile) {
+    const from = savedOrder.indexOf(draggedItem);
+    const to = savedOrder.indexOf(targetFile);
+
+    savedOrder.splice(from, 1);
+    savedOrder.splice(to, 0, draggedItem);
+
+    localStorage.setItem("soundOrder", JSON.stringify(savedOrder));
+    buildSoundboard();
+}
+
+buildSoundboard();
+
+// STOP ALL
+document.getElementById("stopAll").onclick = () => {
     allAudio.forEach(a => {
         a.pause();
         a.currentTime = 0;
@@ -77,75 +115,49 @@ stopButton.onclick = () => {
 };
 
 // -------- PAGE SWITCH --------
-const pages = {
-    soundboard: document.getElementById("soundboardPage"),
-    tts: document.getElementById("ttsPage"),
-    character: document.getElementById("characterPage")
-};
-
 function showPage(page) {
-    Object.values(pages).forEach(p => p.classList.add("hidden"));
-    pages[page].classList.remove("hidden");
+    document.getElementById("soundboardPage").classList.add("hidden");
+    document.getElementById("ttsPage").classList.add("hidden");
+    document.getElementById("characterPage").classList.add("hidden");
+
+    document.getElementById(page + "Page").classList.remove("hidden");
 }
 
-document.getElementById("pageSoundboard").onclick = () => showPage("soundboard");
-document.getElementById("pageTTS").onclick = () => showPage("tts");
-document.getElementById("pageCharacter").onclick = () => showPage("character");
+// -------- REAL TTS --------
+document.getElementById("speakBtn").onclick = () => {
+    const text = document.getElementById("ttsInput").value;
 
-// -------- SPELL & SPEAK --------
-const ttsGrid = document.getElementById("ttsGrid");
-const ttsOutput = document.getElementById("ttsOutput");
-const commonWordsDiv = document.getElementById("commonWords");
+    const speech = new SpeechSynthesisUtterance(text);
+    speech.volume = globalVolume;
 
-let currentText = "";
-
-// COMMON WORDS (COMMUNICATION BOARD)
-const commonWords = ["YES", "NO", "HELP", "STOP", "GO", "WAIT", "ATTACK", "RUN"];
-
-commonWords.forEach(word => {
-    const btn = document.createElement("div");
-    btn.className = "button small";
-    btn.innerText = word;
-
-    btn.onclick = () => {
-        currentText += " " + word;
-        ttsOutput.innerText = currentText;
-    };
-
-    commonWordsDiv.appendChild(btn);
-});
-
-// ALPHABET
-const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-const ttsSounds = {};
-
-alphabet.forEach(letter => {
-    ttsSounds[letter] = new Audio(`audio-alphabet/${letter}.wav`);
-});
-
-alphabet.forEach(letter => {
-    const key = document.createElement("div");
-    key.className = "ttsKey";
-    key.innerText = letter;
-
-    key.onclick = () => {
-        currentText += letter;
-        ttsOutput.innerText = currentText;
-
-        const audio = ttsSounds[letter];
-        audio.currentTime = 0;
-        audio.play();
-    };
-
-    ttsGrid.appendChild(key);
-});
-
-document.getElementById("backspace").onclick = () => {
-    currentText = currentText.slice(0, -1);
-    ttsOutput.innerText = currentText;
+    speechSynthesis.speak(speech);
 };
 
-document.getElementById("clearText").onclick = () => {
-    currentText = "";
-    ttsOutput.innerText = "";
+// -------- CHARACTER SAVE / LOAD --------
+document.getElementById("saveChar").onclick = () => {
+    const data = {
+        name: charName.value,
+        class: charClass.value,
+        level: charLevel.value,
+        hp: charHP.value,
+        abilities: charAbilities.value
+    };
+
+    localStorage.setItem("character", JSON.stringify(data));
 };
+
+document.getElementById("loadChar").onclick = () => {
+    const data = JSON.parse(localStorage.getItem("character"));
+    if (!data) return;
+
+    charName.value = data.name;
+    charClass.value = data.class;
+    charLevel.value = data.level;
+    charHP.value = data.hp;
+    charAbilities.value = data.abilities;
+};
+
+// -------- PWA --------
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("service-worker.js");
+}

@@ -1,97 +1,100 @@
 :root {
-    --bg-color: #7a7a5d;
-    --text-color: #baba04;
-    --button-color: #363625;
-    --button-border: #444;
-    --accent: #82822b;
+    --bg: #2c3138;
+    --panel: #505865;
+    --accent: #b38b5d;
+    --highlight: #7c6a55;
+    --text: #e0e0e0;
 }
 
 body {
     margin: 0;
     font-family: sans-serif;
+    background: var(--bg);
+    color: var(--text);
     text-align: center;
-    color: var(--text-color);
-
-    background: url("images/background.jpg") no-repeat center center fixed;
-    background-size: cover;
 }
 
-/* TITLE WITH BACKGROUND */
+/* BOOT SCREEN */
+#bootScreen {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: black;
+    color: #00ffcc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    z-index: 999;
+}
+
+/* TITLE */
 .title {
-    padding: 15px;
-    background: rgba(0,0,0,0.5);
-    display: inline-block;
-    margin-top: 10px;
-}
-
-/* NAV */
-.nav {
     margin: 10px;
 }
 
+/* NAV */
 .nav button {
     margin: 5px;
-    padding: 8px 12px;
+    padding: 10px;
+    background: var(--panel);
+    border: none;
+    color: white;
     cursor: pointer;
 }
 
-/* GRID */
+/* GRID (3 PER ROW MOBILE) */
 .grid {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 8px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
     padding: 10px;
 }
 
-@media (max-width: 600px) {
-    .grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+.smallGrid {
+    grid-template-columns: repeat(4, 1fr);
 }
 
-/* METALLIC BUTTON */
+/* BUTTON STYLE */
 .button {
-    background: linear-gradient(145deg, #4a4a3a, #2b2b1f);
-    border: 1px solid var(--button-border);
-    padding: 10px;
-    cursor: pointer;
-    box-shadow: 2px 2px 5px #000;
+    background: linear-gradient(145deg, #3a4048, #1f2328);
+    border: 1px solid #000;
+    padding: 12px;
     font-size: 12px;
+    cursor: pointer;
+    box-shadow: inset 0 0 5px #000, 2px 2px 5px #000;
 }
 
 .button:active {
     background: var(--accent);
 }
 
-/* STOP BUTTON */
-#stopAll {
-    margin-bottom: 10px;
-    padding: 10px;
-    cursor: pointer;
-}
-
-/* SPELL & SPEAK */
-.ttsContainer {
-    padding: 10px;
-}
-
-.ttsOutput {
-    min-height: 40px;
-    margin-bottom: 10px;
-    border: 1px solid var(--button-border);
-    padding: 10px;
-    background: rgba(0,0,0,0.4);
-}
-
-/* CONTROL BUTTONS */
-.ttsControls {
-    margin-bottom: 10px;
-}
-
-.ttsControls button {
-    margin: 5px;
+/* SMALL BUTTON */
+.small {
+    font-size: 10px;
     padding: 8px;
-    cursor: pointer;
+}
+
+/* STOP */
+#stopAll {
+    margin: 10px;
+    padding: 10px;
+    background: #8b0000;
+    color: white;
+    border: none;
+}
+
+/* HIDDEN */
+.hidden {
+    display: none;
+}
+
+/* TTS */
+.ttsOutput {
+    min-height: 50px;
+    margin: 10px;
+    padding: 10px;
+    background: var(--panel);
 }
 
 /* KEYBOARD */
@@ -99,11 +102,20 @@ body {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 5px;
+    padding: 10px;
 }
 
 .ttsKey {
+    background: linear-gradient(145deg, #3a4048, #1f2328);
     padding: 10px;
-    background: linear-gradient(145deg, #4a4a3a, #2b2b1f);
-    border: 1px solid var(--button-border);
     cursor: pointer;
+}
+
+/* CHARACTER CARD */
+.characterCard {
+    margin: 20px;
+    padding: 15px;
+    background: var(--panel);
+    border-radius: 10px;
+    text-align: left;
 }

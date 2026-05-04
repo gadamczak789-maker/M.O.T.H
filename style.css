@@ -119,3 +119,23 @@ body {
     border-radius: 10px;
     text-align: left;
 }
+
+.volumeControl {
+    margin: 10px;
+}
+
+textarea {
+    width: 90%;
+    height: 80px;
+    margin: 10px;
+    background: #505865;
+    color: white;
+    border: none;
+    padding: 10px;
+}
+
+input {
+    display: block;
+    margin: 5px auto;
+    padding: 5px;
+}

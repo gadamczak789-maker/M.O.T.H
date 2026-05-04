@@ -1,18 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>M.O.T.H</title>
-    <link rel="stylesheet" href="style.css">
-</head>
 <body>
+
+    <!-- STARTUP SCREEN -->
+    <div id="startupScreen">
+        <h1 class="bootText">M.O.T.H Initializing...</h1>
+    </div>
 
     <h1 class="title">M.O.T.H</h1>
 
     <div class="nav">
         <button id="pageSoundboard">Soundboard</button>
         <button id="pageTTS">Spell & Speak</button>
+        <button id="pageCharacter">Character</button>
     </div>
 
     <button id="stopAll">SILENCE</button>
@@ -32,10 +30,28 @@
                 <button id="clearText">Reset</button>
             </div>
 
+            <div id="wordGrid" class="wordGrid"></div>
             <div class="ttsGrid" id="ttsGrid"></div>
+        </div>
+    </div>
+
+    <!-- CHARACTER PAGE -->
+    <div id="characterPage" style="display:none;">
+        <div class="characterCard">
+            <h2>M.O.T.H</h2>
+            <p><strong>Class:</strong> Artificer</p>
+            <p><strong>Level:</strong> 5</p>
+            <p><strong>HP:</strong> 38</p>
+            <p><strong>AC:</strong> 16</p>
+
+            <h3>Abilities</h3>
+            <ul>
+                <li>Infusions</li>
+                <li>Mechanical Familiar</li>
+                <li>Arcane Pulse</li>
+            </ul>
         </div>
     </div>
 
     <script src="script.js"></script>
 </body>
-</html>

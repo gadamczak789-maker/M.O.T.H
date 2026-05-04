@@ -4,7 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>M.O.T.H</title>
+
 <link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.json">
 </head>
 
 <body>
@@ -14,9 +16,15 @@
 <h1 class="title">M.O.T.H</h1>
 
 <div class="nav">
-    <button id="pageSoundboard">Soundboard</button>
-    <button id="pageTTS">Spell & Speak</button>
-    <button id="pageCharacter">Character</button>
+    <button onclick="showPage('soundboard')">Soundboard</button>
+    <button onclick="showPage('tts')">Spell & Speak</button>
+    <button onclick="showPage('character')">Character</button>
+</div>
+
+<!-- GLOBAL VOLUME -->
+<div class="volumeControl">
+    🔊 Volume
+    <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
 </div>
 
 <button id="stopAll">SILENCE</button>
@@ -26,35 +34,26 @@
     <div class="grid" id="soundboard"></div>
 </div>
 
-<!-- SPELL & SPEAK -->
+<!-- TTS -->
 <div id="ttsPage" class="hidden">
     <div class="ttsContainer">
-        <div id="ttsOutput" class="ttsOutput"></div>
-
-        <div class="ttsControls">
-            <button id="backspace">Backspace</button>
-            <button id="clearText">Reset</button>
-        </div>
-
-        <div id="commonWords" class="grid smallGrid"></div>
-        <div id="ttsGrid" class="ttsGrid"></div>
+        <textarea id="ttsInput" placeholder="Enter text..."></textarea>
+        <button id="speakBtn">Speak</button>
     </div>
 </div>
 
-<!-- CHARACTER PAGE -->
+<!-- CHARACTER -->
 <div id="characterPage" class="hidden">
     <div class="characterCard">
-        <h2>M.O.T.H</h2>
-        <p><strong>Class:</strong> Artificer</p>
-        <p><strong>Level:</strong> 3</p>
-        <p><strong>HP:</strong> 30</p>
+        <input id="charName" placeholder="Name">
+        <input id="charClass" placeholder="Class">
+        <input id="charLevel" placeholder="Level">
+        <input id="charHP" placeholder="HP">
 
-        <h3>Abilities</h3>
-        <ul>
-            <li>Infuse Item</li>
-            <li>Arcane Turret</li>
-            <li>Flash of Genius</li>
-        </ul>
+        <textarea id="charAbilities" placeholder="Abilities..."></textarea>
+
+        <button id="saveChar">Save</button>
+        <button id="loadChar">Load</button>
     </div>
 </div>
 
